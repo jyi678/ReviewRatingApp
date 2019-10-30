@@ -1,4 +1,5 @@
 "# ReviewRatingApp" 
+
 Copy the content of the folder UI to C:\inetpub\wwwroot on a cloud web server VM. You can start with https://localhost/index.html, or replace localhost with the public domain url if applicable.The web application url should be https://[your domain url]/index.html. 
 
 The database schemas are in the folder DatabaseSchema. Create two tables in SQL Server database. One is LogInInfo, and the other is ReviewRating. Load in some records to the two tables. 
