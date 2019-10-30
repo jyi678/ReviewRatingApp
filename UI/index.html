@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+/* Style all input fields */
+input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-top: 6px;
+  margin-bottom: 16px;
+}
+
+/* Style the submit button */
+input[type=submit] {
+  background-color: #4CAF50;
+  color: white;
+}
+
+/* Style the container for inputs */
+.container {
+  background-color: #f1f1f1;
+  padding: 20px;
+}
+
+/* The message box is shown when the user clicks on the password field */
+#message {
+  display:none;
+  background: #f1f1f1;
+  color: #000;
+  position: relative;
+  padding: 20px;
+  margin-top: 10px;
+}
+
+#message p {
+  padding: 10px 35px;
+  font-size: 18px;
+}
+
+/* Add a green text color and a checkmark when the requirements are right */
+.valid {
+  color: green;
+}
+
+.valid:before {
+  position: relative;
+  left: -35px;
+  content: "✔";
+}
+
+/* Add a red text color and an "x" when the requirements are wrong */
+.invalid {
+  color: red;
+}
+
+.invalid:before {
+  position: relative;
+  left: -35px;
+  content: "✖";
+}
+</style>
+</head>
+<body>
+
+	<div id="loginPage">
+		<h3>Password Validation</h3>
+		<p>Try to submit the form.</p>
+
+		<div class="container">
+		  <form  action="javascript:void(0);" onsubmit="return verify()">
+			<label for="usrname">Username</label>
+			<input type="text" id="usrname" name="usrname" required>
+
+			<label for="psw">Password</label>
+			<input type="password" id="psw" name="psw" required>
+			
+			<input type="submit" value="Submit">
+		  </form>
+		</div>
+
+		<div id="message">
+		  <h3>The combination of user name and Password is not correct</h3>
+		  
+		</div>
+	</div>
+
+	<!-- these are for IE 11, fetch and find method -->	
+	<script src="https://cdn.botframework.com/botframework-webchat/latest/botchat-es5.js"></script>
+	<script src="https://cdn.jsdelivr.net/bluebird/3.5.0/bluebird.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/fetch/2.0.3/fetch.js"></script>  
+				
+	<script src="js/verify.js" asp-append-version="true"></script>
+
+
+</body>
+</html>

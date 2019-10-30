@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Review Rating</title>
+    <link rel="stylesheet" href="css/site.css" />
+	<link href="https://cdn.botframework.com/botframework-webchat/latest/botchat.css" rel="stylesheet" />
+</head>
+<body>
+    <h1>Add/Select/View User Review Ratings</h1>
+	<h4>Note: You can toggle each button by clicking it again.</h4>
+	<div>
+		<button onclick="toggleAddDIV()" style="font-size : 20px; width: 40%; height: 40px;">Add a review</button>
+		<div id="addDIV" style="display:none;">
+			
+			<form action="javascript:void(0);" method="POST" onsubmit="addItem()">  
+				<div>
+					<br/>
+					<label for="ratingtype" ><strong> Rating Types: </strong></label> 
+					<br/>
+					<select placeholder="rating type" id="ratingtype">
+					  <option value="Excellent">Excellent</option>
+					  <option value="Moderate">Moderate</option>
+					  <option value="Needs Improvement">Needs Improvement</option>		  
+					</select>	
+				</div>		
+				<br/>
+				<div>
+					<label for="comments"><strong>Review Comments:</strong></label>
+					<br/>
+					<textarea rows="4" cols="50" id="comments" maxlength="250"> Enter text here...</textarea>
+				</div>		
+				<br/>
+				<input type="submit" value="Add">
+				<br/><br/>
+				<div id="addedInfo" style="display:none;">   
+					<h3>The new review is successfully added.</h3>		
+				</div>
+				<div id="addedInfoWrong" style="display:none;">   
+					<h3><font color="red">The review is not added successfully.</font></h3>		
+				</div>
+				
+			</form>
+		</div>
+	</div>
+	
+	
+	
+	<div>	
+		<button onclick="toggleAllReviews()" style="font-size : 20px; width: 40%; height: 40px;">Individual Reviews</button>
+		<div id="individualReview" style="display:none;">
+			<p id="counter"></p>
+			<table>        
+				<tbody id="todos"></tbody>
+			</table>
+		    <br/>
+			<form action="javascript:void(0);" style="display:none;" id="singleview" >
+				<input type="hidden" id="selected-id">
+				<label for="selected-review"><b>Review Comments:</b></label>
+				<p id="selected-review"></p>
+				<br/>
+				<label for="selected-rating"><b>Review Rating:</b></label>
+				<p id="selected-rating" ></p>
+				<a onclick="closeInput()" aria-label="Close">&#10006;</a>
+			</form>
+		</div>
+	</div>
+	
+	
+	<div>
+		<button onclick="toggleRatingsView()" style="font-size : 20px; width: 40%; height: 40px;">All Ratings</button>
+		<div id="viewRatings" style="display:none;">
+			 <br/>
+			<div id="ratingList" style="display:none;">   
+				<label for="excellentSum"><b>Number of Excellent Rating:</b></label>
+				<p id="excellentSum"></p>
+				<br/>
+				<label for="moderateSum"><b>Number of Moderate Rating:</b></label>
+				<p id="moderateSum" ></p>	
+				<br/>	
+				<label for="improveSum"><b>Number of Needs Improvement Rating:</b></label>
+				<p id="improveSum" ></p>					
+			</div>
+			
+		</div>
+	</div>
+
+    
+
+	<!-- these are for IE 11, fetch and find method -->	
+	<script src="https://cdn.botframework.com/botframework-webchat/latest/botchat-es5.js"></script>
+	<script src="https://cdn.jsdelivr.net/bluebird/3.5.0/bluebird.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/fetch/2.0.3/fetch.js"></script>  
+
+    <script src="js/site.js" asp-append-version="true"></script>
+    <script type="text/javascript">
+	    var addDIV = document.getElementById("addDIV");		
+		var individualDIV = document.getElementById("individualReview");
+		var viewRatingDIV = document.getElementById("viewRatings");
+		
+	    function toggleAddDIV() {		  
+		  if (addDIV.style.display === "none") {
+			addDIV.style.display = "block";
+			viewRatingDIV.style.display = "none";
+			individualDIV.style.display = "none";
+		  } else {
+			addDIV.style.display = "none";
+		  }
+		}			    
+
+	    function toggleAllReviews() {		  
+		  if (individualDIV.style.display === "none") {
+			individualDIV.style.display = "block";
+			addDIV.style.display = "none";
+			viewRatingDIV.style.display = "none";			
+		  } else {
+			individualDIV.style.display = "none";
+		  }
+		}	
+		
+		function toggleRatingsView(){		  
+		  if (viewRatingDIV.style.display === "none") {
+			viewRatingDIV.style.display = "block";
+			addDIV.style.display = "none";			
+			individualDIV.style.display = "none";
+		  } else {
+			viewRatingDIV.style.display = "none";
+		  }
+		}		
+		
+        getItems();
+		displayRatings();
+    </script>
+	
+	<br/>
+	
+
+</body>
+</html>
