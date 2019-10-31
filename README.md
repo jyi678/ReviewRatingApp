@@ -28,7 +28,8 @@ References:
 1. Tutorial: Create a web API with ASP.NET Core: https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-web-api?view=aspnetcore-3.0&tabs=visual-studio
 2. ASP.NET Core web API help pages with Swagger / OpenAPI: https://docs.microsoft.com/en-us/aspnet/core/tutorials/web-api-help-pages-using-swagger?view=aspnetcore-3.0
 3. Tutorial: Call an ASP.NET Core web API with JavaScript: https://docs.microsoft.com/en-us/aspnet/core/tutorials/web-api-javascript?view=aspnetcore-3.0
-4. How TO - Password Validation: https://www.w3schools.com/howto/howto_js_password_validation.asp
+4. This is a prototype web application for users to rate their online experience and provide feedback on one of the online services. 
+5. How TO - Password Validation: https://www.w3schools.com/howto/howto_js_password_validation.asp
 
 How to use the code: 
 
