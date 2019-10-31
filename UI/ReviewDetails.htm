@@ -7,8 +7,12 @@
 	<link href="https://cdn.botframework.com/botframework-webchat/latest/botchat.css" rel="stylesheet" />
 </head>
 <body>
-    <h1>Add/Select/View User Review Ratings</h1>
-	<h4>Note: You can toggle each button by clicking it again.</h4>
+    <h1>User Review Ratings</h1>
+	<h4>Note: You can toggle each button.</h4>
+	<div id="alertDIV" style="display:none;">
+		<h4>Note: You have to log in first!</h4>
+	</div>
+	
 	<div>
 		<button onclick="toggleAddDIV()" style="font-size : 20px; width: 40%; height: 40px;">Add a review</button>
 		<div id="addDIV" style="display:none;">
@@ -34,7 +38,7 @@
 				<input type="submit" value="Add">
 				<br/><br/>
 				<div id="addedInfo" style="display:none;">   
-					<h3>The new review is successfully added.</h3>		
+					<h3>The new review is successfully added. You need to refresh the webpage in order to see the newly added record. </h3>		
 				</div>
 				<div id="addedInfoWrong" style="display:none;">   
 					<h3><font color="red">The review is not added successfully.</font></h3>		
@@ -94,6 +98,8 @@
 
     <script src="js/site.js" asp-append-version="true"></script>
     <script type="text/javascript">
+	
+    
 	    var addDIV = document.getElementById("addDIV");		
 		var individualDIV = document.getElementById("individualReview");
 		var viewRatingDIV = document.getElementById("viewRatings");
