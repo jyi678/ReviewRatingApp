@@ -4,6 +4,13 @@ let usrname = '';
 
 function getItems() {
 	
+  if (localStorage.getItem("userName") == '' || localStorage.getItem("userName")== null)
+  {
+	  
+	  document.getElementById("alertDIV").style.display = "block";	
+	  window.location.href = "index.html";
+	  
+  }
   fetch(uri)
     .then(function(response){return response.json()})
     .then(function(data) {   _displayItems(data)})
