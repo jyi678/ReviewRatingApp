@@ -72,7 +72,11 @@ function addItem() {
   })
     .then(function(response){return response.json()})
     .then(function() {
-      document.getElementById('addedInfo').style.display = "block";	  
+      document.getElementById('addedInfo').style.display = "block";	  	  
+	  todos.push(JSON.stringify(item));	 	 
+	 
+	  getItems();
+	  displayRatings();
     })
     .catch(function(error) { 
 	document.getElementById('addedInfoWrong').style.display = "block";	
