@@ -14,6 +14,7 @@ namespace ReviewAPI.Controllers
     public class ReviewController : ControllerBase
     {
         private readonly ReviewContext _context;
+        private readonly List<string> constraintTypes = new List<string>{ "Excellent","Moderate","Needs Improvement" };
 
         public ReviewController(ReviewContext context)
         {
@@ -43,7 +44,7 @@ namespace ReviewAPI.Controllers
 
             if (todoItem == null)
             {
-                return NotFound();
+                return NotFound(new { message = "The id does not exist. "});
             }
 
             return todoItem;
@@ -55,12 +56,32 @@ namespace ReviewAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<Review>> PostReviewRating(Review todoItem)
         {
-             if (!TodoItemExists(todoItem.Id))
+            int length = _context.ReviewRating.Count() + 1; 
+            if (!TodoItemExists(todoItem.Id))
+            {
+                if (constraintTypes.Contains(todoItem.RatingType))
                 {
                     _context.ReviewRating.Add(todoItem);
-                    await _context.SaveChangesAsync();
+                    try
+                    {
+                        await _context.SaveChangesAsync();
+                    }
+                    catch (Exception)
+                    {                           
+                        throw;                            
+                    }
+                    
                 }
-            
+                else{
+                    //throw new Exception("The rating type is not correct. Use Excellent, Moderate, or Needs Improvement");
+                    return NotFound(new { message = "The rating type is not correct. Use Excellent, Moderate, or Needs Improvement"});
+                }
+            }
+            else
+            {
+                //throw new Exception("This ID is aleady in the table. Try to use value " + length );
+                return NotFound(new { message = "This ID is aleady in the table. It cannot be used again. "});
+            }
 
             return CreatedAtAction(nameof(GetReviewRating), new { id = todoItem.Id }, todoItem);
         }
