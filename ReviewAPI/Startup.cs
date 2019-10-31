@@ -1,4 +1,5 @@
 using System;
+using System.Net.Mime;
 using System.Reflection;
 using System.IO;
 using Microsoft.AspNetCore.Builder;
@@ -9,6 +10,12 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using ReviewAPI.Models;
 using Microsoft.OpenApi.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Core;
+
+
+
+//using ReviewAPI.Filters;
 
 namespace ReviewAPI
 {
@@ -29,6 +36,38 @@ namespace ReviewAPI
                 services.AddDbContext<LogInContext>(opt =>
                opt.UseSqlServer(Configuration.GetSection("database")["connection"]));
             services.AddControllers();
+            #if ExceptionFilter
+            #region snippet_AddExceptionFilter
+            services.AddControllers(options =>
+                options.Filters.Add(new HttpResponseExceptionFilter()));
+            #endregion
+            #endif
+
+            #if InvalidModelStateResponseFactory
+            #region snippet_DisableProblemDetailsInvalidModelStateResponseFactory
+            services.AddControllers()
+                .ConfigureApiBehaviorOptions(options =>
+                {
+                    options.InvalidModelStateResponseFactory = context =>
+                    {
+                        var result = new BadRequestObjectResult(context.ModelState);
+
+                        // TODO: add `using using System.Net.Mime;` to resolve MediaTypeNames
+                        result.ContentTypes.Add(MediaTypeNames.Application.Json);
+                        result.ContentTypes.Add(MediaTypeNames.Application.Xml);
+
+                        return result;
+                    };
+/*
+                    options.SuppressConsumesConstraintForFormFileParameters = true;
+                    options.SuppressInferBindingSourcesForParameters = true;
+                    options.SuppressModelStateInvalidFilter = true;
+                    options.SuppressMapClientErrors = true;
+                    options.ClientErrorMapping[404].Link =
+                        "https://jyiweb.tcgis.ca/test/404";
+                    });*/
+            #endregion
+            #endif
 
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen(c =>
@@ -54,7 +93,7 @@ namespace ReviewAPI
         {
             app.UseCors(builder =>
             {
-                builder.WithOrigins("http://xxxxxx.xxxxxx.ca",                                   
+                builder.WithOrigins("http://jyiweb.tcgis.ca",                                   
                                     "http://localhost:5001")   
                        .AllowAnyMethod()
                        .AllowAnyHeader()
@@ -66,6 +105,10 @@ namespace ReviewAPI
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                app.UseExceptionHandler("/error");
             }
 
             app.UseDefaultFiles();
@@ -79,7 +122,10 @@ namespace ReviewAPI
             // specifying the Swagger JSON endpoint.
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("../swagger/v1/swagger.json", "Review Rating API V1");
+                //c.SwaggerEndpoint("../swagger/v1/swagger.json", "Review Rating API V1");
+                //c.RoutePrefix = "swagger";
+
+                 c.SwaggerEndpoint("../swagger/v1/swagger.json", "Review Rating API V1");
                 c.RoutePrefix = "swagger";
             });
 
