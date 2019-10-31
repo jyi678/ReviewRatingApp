@@ -95,6 +95,7 @@
 	<script src="https://cdn.botframework.com/botframework-webchat/latest/botchat-es5.js"></script>
 	<script src="https://cdn.jsdelivr.net/bluebird/3.5.0/bluebird.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/fetch/2.0.3/fetch.js"></script>  
+	<script src="https://cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.min.js"></script>
 
     <script src="js/site.js" asp-append-version="true"></script>
     <script type="text/javascript">
@@ -112,6 +113,8 @@
 		  } else {
 			addDIV.style.display = "none";
 		  }
+		  getItems();
+		  displayRatings();
 		}			    
 
 	    function toggleAllReviews() {		  
@@ -122,6 +125,8 @@
 		  } else {
 			individualDIV.style.display = "none";
 		  }
+		  getItems();
+		  displayRatings();
 		}	
 		
 		function toggleRatingsView(){		  
@@ -132,6 +137,8 @@
 		  } else {
 			viewRatingDIV.style.display = "none";
 		  }
+		  getItems();
+		  displayRatings();
 		}		
 		
         getItems();
