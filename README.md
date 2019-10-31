@@ -1,3 +1,6 @@
+
+This is a prototype web application for users to rate their online experience and provide feedback on one of the online services. 
+
 The prototype implements the following features:
 
 1. User needs to sign into the application with provided username and password.
